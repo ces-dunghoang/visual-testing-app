@@ -2,7 +2,6 @@ package com.example.demoappvisualtesting.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +16,7 @@ public class VisualTestingController {
     String command = "npx playwright test";
     try {
       // Create a process builder
-      ProcessBuilder processBuilder = new ProcessBuilder(command.split("\\s+"));
-      // Redirect error stream to output stream
+      ProcessBuilder processBuilder = new ProcessBuilder(command.split("\\s+"));// Redirect error stream to output stream
       processBuilder.redirectErrorStream(true);
       // Start the process
       Process process = processBuilder.start();

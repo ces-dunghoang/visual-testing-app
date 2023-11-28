@@ -1,6 +1,7 @@
 package com.example.demoappvisualtesting.controller;
 import com.example.demoappvisualtesting.model.entity.Sitemap;
-import com.example.demoappvisualtesting.service.SitemapService;
+import com.example.demoappvisualtesting.service.ISitemapService;
+import com.example.demoappvisualtesting.service.SitemapServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api/sitemaps")
 @RequiredArgsConstructor
 public class SitemapController {
-  private final SitemapService sitemapService;
+  private final ISitemapService sitemapService;
 
   @GetMapping
   public List<Sitemap> getAllSitemaps() {
@@ -33,7 +34,7 @@ public class SitemapController {
     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 
-  @PostMapping("/upload")
+  @PostMapping(value = "/upload", consumes = {"multipart/form-data"})
   public ResponseEntity<List<String>> uploadFile(@RequestParam("file") MultipartFile file) {
     try {
       List<String> urls = this.sitemapService.extractUrlsFromXml(file.getInputStream());

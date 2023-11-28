@@ -1,5 +1,4 @@
 package com.example.demoappvisualtesting.service;
-// SitemapService.java
 import com.example.demoappvisualtesting.model.entity.Sitemap;
 import com.example.demoappvisualtesting.repository.SitemapRepository;
 import java.io.IOException;
@@ -24,7 +23,7 @@ import org.jdom2.input.SAXBuilder;
 
 @Service
 @RequiredArgsConstructor
-public class SitemapService {
+public class SitemapServiceImpl implements ISitemapService {
   private final SitemapRepository sitemapRepository;
 
   private final Path root = Paths.get("uploads");
@@ -69,7 +68,6 @@ public class SitemapService {
 
   public List<String> extractUrlsFromXml(InputStream inputStream) throws IOException {
     List<String> urls = new ArrayList<>();
-
     try {
       SAXBuilder saxBuilder = new SAXBuilder();
       Document document = saxBuilder.build(inputStream);
