@@ -1,5 +1,5 @@
-# docker-compose.yml
-version: "3.8"
+version: '3.8'
+
 services:
   mongo:
     image: mongo:5.0
@@ -14,6 +14,9 @@ services:
       - ./database/db:/data/db
       - ./database/dev.archive:/Databases/dev.archive
       - ./database/production:/Databases/production
+    networks:
+      - mynetwork
+
   mongo-express:
     image: mongo-express
     container_name: mexpress
@@ -28,3 +31,21 @@ services:
     restart: unless-stopped
     ports:
       - "8081:8081"
+    networks:
+      - mynetwork
+
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
